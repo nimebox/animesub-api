@@ -8,6 +8,7 @@ http://animesub.info
 ## Usage
 ### Download subtitles
 
+```javascript
     const animesub = require('animesub-api')
     const title = 'boruto'
     const filename = 'file'
@@ -21,5 +22,6 @@ http://animesub.info
     }
     
     animesub.download(title, titletype.org, QUERY.id, QUERY.sh, filename)
+```
 
 or see example: https://github.com/xdk78/animesub-api/tree/master/example

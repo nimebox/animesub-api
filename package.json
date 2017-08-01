@@ -1,0 +1,31 @@
+{
+  "name": "animesub-api",
+  "version": "0.1.0",
+  "description": "animesub.info unofficial api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "anime",
+    "animesub",
+    "animesub.info",
+    "subtitles",
+    "sub",
+    "napisy",
+    "pl"
+  ],
+  "author": "xdk78",
+  "license": "MIT",
+  "dependencies": {
+    "@3846masa/axios-cookiejar-support": "^0.1.0",
+    "axios": "^0.16.2",
+    "q": "^1.5.0",
+    "tough-cookie": "latest",
+    "x-ray": "latest"
+  },
+  "devDependencies": {
+    "eslint": "^4.3.0",
+    "eslint-config-standard": "^10.2.1"
+  }
+}

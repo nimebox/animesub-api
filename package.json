@@ -1,6 +1,6 @@
 {
   "name": "animesub-api",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "animesub.info unofficial api",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,13 @@
     "napisy",
     "pl"
   ],
+  "repository": {
+        "type": "git",
+        "url": "https://github.com/xdk78/animesub-api.git"
+    },
   "author": "xdk78",
+  "homepage": "https://github.com/xdk78/animesub-api",
+  "bugs": "https://github.com/xdk78/animesub-api/issues",
   "license": "MIT",
   "dependencies": {
     "@3846masa/axios-cookiejar-support": "^0.1.0",

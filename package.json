@@ -1,6 +1,6 @@
 {
   "name": "animesub-api",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "animesub.info unofficial api",
   "main": "index.js",
   "scripts": {
@@ -16,9 +16,9 @@
     "pl"
   ],
   "repository": {
-        "type": "git",
-        "url": "https://github.com/xdk78/animesub-api.git"
-    },
+    "type": "git",
+    "url": "https://github.com/xdk78/animesub-api.git"
+  },
   "author": "xdk78",
   "homepage": "https://github.com/xdk78/animesub-api",
   "bugs": "https://github.com/xdk78/animesub-api/issues",

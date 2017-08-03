@@ -6,10 +6,11 @@ const tough = require('tough-cookie')
 axiosCookieJarSupport(axios)
 const cookieJar = new tough.CookieJar()
 let qs = require('querystring')
+let _ = require('lodash')
 
 let api = axios.create({
-  jar: cookieJar, // tough.CookieJar or boolean
-  withCredentials: true // If true, send cookie stored in jar
+  jar: cookieJar,
+  withCredentials: true
 })
 
 const DOWNLOAD_URL = 'http://animesub.info/sciagnij.php'
@@ -28,21 +29,9 @@ const download = (title, titletype, id, filename) => {
           console.log(err)
         }
 
-        function removeA (arr) {
-          let what, a, L, ax
-          a = arguments
-          L = a.length
-          while (L > 1 && arr.length) {
-            what = a[--L]
-            while ((ax = arr.indexOf(what)) !== -1) {
-              arr.splice(ax, 1)
-            }
-          }
-          return arr
-        }
-
         let array = obj.value
-        removeA(array, 'ok', '1', 'Zaloguj si�', 'Szukaj', 'Szukaj napis�w', 'Pobierz napisy')
+        array = _.without(array, 'ok', '1', 'Zaloguj si�', 'Szukaj', 'Szukaj napis�w', 'Pobierz napisy')
+
         array.splice(0, 4)
         console.log('All values: ' + array)
 
@@ -51,8 +40,8 @@ const download = (title, titletype, id, filename) => {
         } else { id *= 2 }
 
         const QUERY = {
-          id: obj.value[id],
-          sh: obj.value[id + 1]
+          id: array[id],
+          sh: array[id + 1]
         }
 
         console.log('id:' + QUERY.id, 'sh: ' + QUERY.sh)
@@ -85,6 +74,29 @@ const download = (title, titletype, id, filename) => {
     })
 }
 
+const search = (title, titletype) => {
+  return new Promise((resolve, reject) => {
+    api.get('http://animesub.info/szukaj.php?szukane=' + title + '&pTitle=' + titletype)
+      .then(function (response) {
+        x(response.data,
+          {
+            title: ['tr[class=KNap] > td[width="45%"]']
+          }
+        )(function (err, obj) {
+          if (err) {
+            console.log(err)
+          }
+          let array2 = obj.title
+          resolve(array2)
+        })
+      })
+      .catch(function (error) {
+        reject(error)
+      })
+  })
+}
+
 module.exports = {
-  download
+  download,
+  search
 }

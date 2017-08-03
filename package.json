@@ -1,6 +1,6 @@
 {
   "name": "animesub-api",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "animesub.info unofficial api",
   "main": "index.js",
   "scripts": {
@@ -24,10 +24,11 @@
   "bugs": "https://github.com/xdk78/animesub-api/issues",
   "license": "MIT",
   "dependencies": {
-    "@3846masa/axios-cookiejar-support": "^0.1.0",
+    "@3846masa/axios-cookiejar-support": "^0.1.1",
     "axios": "^0.16.2",
+    "lodash": "^4.17.4",
     "q": "^1.5.0",
-    "tough-cookie": "latest",
+    "tough-cookie": "^2.3.2",
     "x-ray": "latest"
   },
   "devDependencies": {

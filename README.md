@@ -24,5 +24,22 @@ let id = 1
 animesub.download(title, titletype.org, id, filename)
 
 ```
+### Search
 
+```javascript
+const animesub = require('animesub-api')
+const title = 'shokugeki no souma'
+const titletype = {
+  org: 'org', // oryginalny tytuł
+  pl: 'pl', // polski tytuł
+  en: 'en' // angielski tytuł
+}
+
+animesub.search(title, titletype.org).then((titles) => {
+  console.log(titles)
+}).catch((err) => {
+  console.log(err)
+})
+
+```
 or see example: https://github.com/xdk78/animesub-api/tree/master/example

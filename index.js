@@ -84,10 +84,10 @@ const search = (title, titletype) => {
           }
         )(function (err, obj) {
           if (err) {
-            console.log(err)
+            console.log('Can\'t scrape: ' + err)
           }
-          let array2 = obj.title
-          resolve(array2)
+          let titles = _.uniqWith(obj.title, _.isEqual)
+          resolve(titles)
         })
       })
       .catch(function (error) {

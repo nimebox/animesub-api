@@ -18,7 +18,6 @@ const titletype = {
   en: 'en' // angielski tytuł
 }
 
-// id from 0 to 7
 let id = 1
 
 animesub.download(title, titletype.org, id, filename)

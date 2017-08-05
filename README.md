@@ -34,8 +34,9 @@ const titletype = {
   en: 'en' // angielski tytuł
 }
 
-animesub.search(title, titletype.org).then((titles) => {
+animesub.search(title, titletype.org).then(({titles, queries}) => {
   console.log(titles)
+  console.log(queries) // first index[0] = id, second index[1] = sh
 }).catch((err) => {
   console.log(err)
 })

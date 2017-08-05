@@ -12,8 +12,9 @@ let id = 1
 
 animesub.download(title, titletype.org, id, filename)
 
-animesub.search(title2, titletype.org).then((titles) => {
+animesub.search(title2, titletype.org).then(({titles, queries}) => {
   console.log(titles)
+  console.log(queries) // first index[0] = id, second index[1] = sh
 }).catch((err) => {
   console.log(err)
 })

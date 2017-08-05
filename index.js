@@ -14,9 +14,10 @@ let api = axios.create({
 })
 
 const DOWNLOAD_URL = 'http://animesub.info/sciagnij.php'
+const SEARCH_URL = 'http://animesub.info/szukaj.php?szukane='
 
 const download = (title, titletype, id, filename) => {
-  api.get('http://animesub.info/szukaj.php?szukane=' + title + '&pTitle=' + titletype)
+  api.get(SEARCH_URL + title + '&pTitle=' + titletype)
     .then(function (response) {
       console.log('\n GET')
       console.log(response.headers)
@@ -76,10 +77,11 @@ const download = (title, titletype, id, filename) => {
 
 const search = (title, titletype) => {
   return new Promise((resolve, reject) => {
-    api.get('http://animesub.info/szukaj.php?szukane=' + title + '&pTitle=' + titletype)
+    api.get(SEARCH_URL + title + '&pTitle=' + titletype)
       .then(function (response) {
         x(response.data,
           {
+            value: ['input@value'],
             title: ['tr[class=KNap] > td[width="45%"]']
           }
         )(function (err, obj) {
@@ -87,7 +89,10 @@ const search = (title, titletype) => {
             console.log('Can\'t scrape: ' + err)
           }
           let titles = _.uniqWith(obj.title, _.isEqual)
-          resolve(titles)
+          let queries = obj.value
+          queries = _.without(queries, 'ok', '1', 'Zaloguj si�', 'Szukaj', 'Szukaj napis�w', 'Pobierz napisy')
+          queries.splice(0, 4)
+          resolve({titles, queries})
         })
       })
       .catch(function (error) {

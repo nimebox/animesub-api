@@ -88,7 +88,7 @@ const search = (title, titletype) => {
           if (err) {
             console.log('Can\'t scrape: ' + err)
           }
-          let titles = _.uniqWith(obj.title, _.isEqual)
+          let titles = obj.title
           let queries = obj.value
           queries = _.without(queries, 'ok', '1', 'Zaloguj si�', 'Szukaj', 'Szukaj napis�w', 'Pobierz napisy')
           queries.splice(0, 4)

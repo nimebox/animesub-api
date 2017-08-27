@@ -1,6 +1,6 @@
 {
   "name": "animesub-api",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "animesub.info unofficial api",
   "main": "index.js",
   "scripts": {
@@ -29,10 +29,10 @@
     "lodash": "^4.17.4",
     "q": "^1.5.0",
     "tough-cookie": "^2.3.2",
-    "x-ray": "latest"
+    "x-ray": "^2.3.2"
   },
   "devDependencies": {
-    "eslint": "^4.3.0",
+    "eslint": "^4.5.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-node": "^5.1.1",

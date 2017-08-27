@@ -34,12 +34,27 @@ const titletype = {
   en: 'en' // angielski tytuł
 }
 
-animesub.search(title, titletype.org).then(({titles, queries}) => {
-  console.log(titles)
-  console.log(queries) // first index[0] = id, second index[1] = sh
+animesub.search(title, titletype.org).then((out) => {
+  console.log(out)
 }).catch((err) => {
   console.log(err)
 })
 
 ```
-or see example: https://github.com/xdk78/animesub-api/tree/master/example
+
+```json
+[
+	{
+		"title": "Shokugeki no Souma: Ni no Sara ep01",
+		"id": "61220",
+		"sh": "cbb68e1d743aa90784e24254a087aa61b0f3f5fd"
+	},
+	{
+		"title": "Shokugeki no Souma: Ni no Sara ep02",
+		"id": "61286",
+		"sh": "48ad028c6d256a5b681d79edc106ad156747d287"
+	}
+]	
+```
+
+

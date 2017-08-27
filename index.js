@@ -1,14 +1,15 @@
-let fs = require('fs')
-let x = require('x-ray')()
-let axios = require('axios')
+const fs = require('fs')
+const x = require('x-ray')()
+const axios = require('axios')
 const axiosCookieJarSupport = require('@3846masa/axios-cookiejar-support')
 const tough = require('tough-cookie')
-axiosCookieJarSupport(axios)
-const cookieJar = new tough.CookieJar()
-let qs = require('querystring')
-let _ = require('lodash')
+const qs = require('querystring')
+const _ = require('lodash')
 
-let api = axios.create({
+const cookieJar = new tough.CookieJar()
+axiosCookieJarSupport(axios)
+
+const api = axios.create({
   jar: cookieJar,
   withCredentials: true
 })
@@ -88,11 +89,23 @@ const search = (title, titletype) => {
           if (err) {
             console.log('Can\'t scrape: ' + err)
           }
+          let out = []
           let titles = obj.title
           let queries = obj.value
           queries = _.without(queries, 'ok', '1', 'Zaloguj si�', 'Szukaj', 'Szukaj napis�w', 'Pobierz napisy')
           queries.splice(0, 4)
-          resolve({titles, queries})
+
+          titles.map((el, i) => {
+            if (i === 0) {
+              i = 0
+            } else { i *= 2 }
+            out.push({
+              title: el,
+              id: queries[i],
+              sh: queries[i + 1]
+            })
+          })
+          resolve(JSON.stringify(out, 4, '\t'))
         })
       })
       .catch(function (error) {

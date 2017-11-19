@@ -105,7 +105,7 @@ const search = (title, titletype) => {
               sh: queries[i + 1]
             })
           })
-          resolve(JSON.stringify(out, 4, '\t'))
+          resolve(out)
         })
       })
       .catch(function (error) {

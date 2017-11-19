@@ -13,7 +13,7 @@ let id = 1
 animesub.download(title, titletype.org, id, filename)
 
 animesub.search(title2, titletype.org).then((out) => {
-  console.log(out) // output json
+  console.log(JSON.stringify(out)) // output json
 }).catch((err) => {
   console.log(err)
 })

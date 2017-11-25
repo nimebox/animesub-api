@@ -11,16 +11,21 @@ http://animesub.info
 ```javascript
 const animesub = require('animesub-api')
 const title = 'boruto'
-const filename = 'boruto_napisy' // output boruto_napisy.zip
+const path = 'boruto_napisy.zip' // output boruto_napisy.zip
 const titletype = {
   org: 'org', // oryginalny tytuł
   pl: 'pl', // polski tytuł
   en: 'en' // angielski tytuł
 }
-
-let id = 1
-
-animesub.download(title, titletype.org, id, filename)
+const id = 1
+// Search and download
+animesub.search(title, titletype.org)
+  .then(data => {
+    console.log(data)
+    animesub.download(data[0].id, data[0].sh, path)
+      .then(log => console.log(log))
+      .catch(err => console.log(err))
+  }).catch(err => console.log(err))
 
 ```
 ### Search
@@ -34,26 +39,22 @@ const titletype = {
   en: 'en' // angielski tytuł
 }
 
-animesub.search(title, titletype.org).then((out) => {
-  console.log(out)
+animesub.search(title, titletype.org).then((data) => {
+  console.log(data)
 }).catch((err) => {
   console.log(err)
 })
 
 ```
 
-```json
+```js
 [
-	{
-		"title": "Shokugeki no Souma: Ni no Sara ep01",
-		"id": "61220",
-		"sh": "cbb68e1d743aa90784e24254a087aa61b0f3f5fd"
-	},
-	{
-		"title": "Shokugeki no Souma: Ni no Sara ep02",
-		"id": "61286",
-		"sh": "48ad028c6d256a5b681d79edc106ad156747d287"
-	}
+	{ title: 'Shokugeki no Souma: Ni no Sara ep01',
+    id: '61211',
+    sh: '8cb865e5e82d2a1d2d10487674ac4f9369dac8b3' },
+  { title: 'Shokugeki no Souma: Ni no Sara ep01',
+    id: '61220',
+    sh: 'c66d9ba7b90bfa706e845b82c1e92744ab5c6196' }
 ]	
 ```
 

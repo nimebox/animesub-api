@@ -17,100 +17,44 @@ const api = axios.create({
 const DOWNLOAD_URL = 'http://animesub.info/sciagnij.php'
 const SEARCH_URL = 'http://animesub.info/szukaj.php?szukane='
 
-const download = (title, titletype, id, filename) => {
-  api.get(SEARCH_URL + title + '&pTitle=' + titletype)
-    .then(function (response) {
-      console.log('\n GET')
-      console.log(response.headers)
-      x(response.data,
-        {
-          value: ['input@value']
-        }
-      )(function (err, obj) {
-        if (err) {
-          console.log(err)
-        }
-
-        let array = obj.value
-        array = _.without(array, 'ok', '1', 'Zaloguj si�', 'Szukaj', 'Szukaj napis�w', 'Pobierz napisy')
-
-        array.splice(0, 4)
-        console.log('All values: ' + array)
-
-        if (id === 0) {
-          id = 0
-        } else { id *= 2 }
-
-        const QUERY = {
-          id: array[id],
-          sh: array[id + 1]
-        }
-
-        console.log('id:' + QUERY.id, 'sh: ' + QUERY.sh)
-        api.post(DOWNLOAD_URL,
-          qs.stringify({
-            id: QUERY.id,
-            sh: QUERY.sh
-          }),
-          {
-            responseType: 'arraybuffer'
-          }
-        )
-          .then(function (response) {
-            console.log('\n POST')
-            console.log(response.headers)
-            fs.writeFile(filename + '.zip', response.data, function (err) {
-              if (err) {
-                console.log(err)
-              }
-              console.log(filename + '.zip' + ' written!')
-            })
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
-      })
+const download = async (id, sh, path) => {
+  const response = await api.post(DOWNLOAD_URL, qs.stringify({id: id, sh: sh}), {responseType: 'arraybuffer'}).catch(error => { console.log(error) })
+  return new Promise((resolve, reject) => {
+    fs.writeFile(path, response.data, (err) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(`${path} written!`)
     })
-    .catch(function (error) {
-      console.log(error)
-    })
+  })
 }
 
-const search = (title, titletype) => {
+const search = async (title, titletype) => {
+  const response = await api.get(SEARCH_URL + title + '&pTitle=' + titletype).catch(error => { console.log(error) })
   return new Promise((resolve, reject) => {
-    api.get(SEARCH_URL + title + '&pTitle=' + titletype)
-      .then(function (response) {
-        x(response.data,
-          {
-            value: ['input@value'],
-            title: ['tr[class=KNap] > td[width="45%"]']
-          }
-        )(function (err, obj) {
-          if (err) {
-            console.log('Can\'t scrape: ' + err)
-          }
-          let out = []
-          let titles = obj.title
-          let queries = obj.value
-          queries = _.without(queries, 'ok', '1', 'Zaloguj si�', 'Szukaj', 'Szukaj napis�w', 'Pobierz napisy')
-          queries.splice(0, 4)
-
-          titles.map((el, i) => {
-            if (i === 0) {
-              i = 0
-            } else { i *= 2 }
-            out.push({
-              title: el,
-              id: queries[i],
-              sh: queries[i + 1]
-            })
-          })
-          resolve(out)
+    x(response.data,
+      {
+        value: ['input@value'],
+        title: ['tr[class=KNap] > td[width="45%"]']
+      }
+    )((err, obj) => {
+      if (err) {
+        reject(err)
+      }
+      const queries = _.without(obj.value, 'ok', '1', 'Zaloguj si�', 'Szukaj', 'Szukaj napis�w', 'Pobierz napisy')
+      queries.splice(0, 4)
+      const out = obj.title.map((el, i) => {
+        if (i === 0) {
+          i = 0
+        } else { i *= 2 }
+        return ({
+          title: el,
+          id: queries[i],
+          sh: queries[i + 1]
         })
       })
-      .catch(function (error) {
-        reject(error)
-      })
+      resolve(out)
+    })
   })
 }
 

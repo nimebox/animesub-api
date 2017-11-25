@@ -1,19 +1,16 @@
 const animesub = require('../index.js')
 const title = 'boruto'
-const title2 = 'shokugeki no souma'
-const filename = 'boruto_napisy' // output boruto_napisy.zip
+const path = 'boruto_napisy.zip' // output boruto_napisy.zip
 const titletype = {
   org: 'org', // oryginalny tytuł
   pl: 'pl', // polski tytuł
   en: 'en' // angielski tytuł
 }
-
-let id = 1
-
-animesub.download(title, titletype.org, id, filename)
-
-animesub.search(title2, titletype.org).then((out) => {
-  console.log(JSON.stringify(out)) // output json
-}).catch((err) => {
-  console.log(err)
-})
+// Search and download
+animesub.search(title, titletype.org)
+  .then(data => {
+    console.log(data)
+    animesub.download(data[0].id, data[0].sh, path)
+      .then(log => console.log(log))
+      .catch(err => console.error(err))
+  }).catch(err => console.error(err))

@@ -18,19 +18,23 @@ const DOWNLOAD_URL = 'http://animesub.info/sciagnij.php'
 const SEARCH_URL = 'http://animesub.info/szukaj.php?szukane='
 
 const download = async (id, sh, path) => {
-  const response = await api.post(DOWNLOAD_URL, qs.stringify({id: id, sh: sh}), {responseType: 'arraybuffer'}).catch(error => { console.log(error) })
+  const response = await api.post(DOWNLOAD_URL, qs.stringify({id: id, sh: sh}), {responseType: 'arraybuffer'}).catch(error => { console.error(error) })
   return new Promise((resolve, reject) => {
-    fs.writeFile(path, response.data, (err) => {
-      if (err) {
-        reject(err)
-      }
-      resolve(`${path} written!`)
-    })
+    if (response.headers['content-type'] === 'application/zip') {
+      fs.writeFile(path, response.data, (err) => {
+        if (err) {
+          reject(err)
+        }
+        resolve(`${path} written!`)
+      })
+    } else {
+      reject(console.error('content-type must be application/zip'))
+    }
   })
 }
 
 const search = async (title, titletype) => {
-  const response = await api.get(SEARCH_URL + title + '&pTitle=' + titletype).catch(error => { console.log(error) })
+  const response = await api.get(SEARCH_URL + title + '&pTitle=' + titletype).catch(error => { console.error(error) })
   return new Promise((resolve, reject) => {
     x(response.data,
       {

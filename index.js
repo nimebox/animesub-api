@@ -5,7 +5,7 @@ const axiosCookieJarSupport = require('@3846masa/axios-cookiejar-support')
 const tough = require('tough-cookie')
 const qs = require('querystring')
 const _ = require('lodash')
-
+axios.defaults.adapter = require('axios/lib/adapters/http')
 const cookieJar = new tough.CookieJar()
 axiosCookieJarSupport(axios)
 

@@ -1,8 +1,8 @@
 {
   "name": "animesub-api",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "animesub.info unofficial api",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "lint": "eslint --ext .js --ignore-path .gitignore .",
     "lint-fix": "eslint  --fix --ext .js --ignore-path .gitignore .",
@@ -27,14 +27,14 @@
   "license": "MIT",
   "dependencies": {
     "@3846masa/axios-cookiejar-support": "^0.1.4",
-    "axios": "^0.16.2",
+    "axios": "^0.17.1",
     "lodash": "^4.17.4",
     "q": "^1.5.1",
     "tough-cookie": "^2.3.3",
     "x-ray": "^2.3.2"
   },
   "devDependencies": {
-    "eslint": "^4.11.0",
+    "eslint": "^4.13.1",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.1",

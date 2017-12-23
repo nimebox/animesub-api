@@ -10,12 +10,13 @@ const cookieJar = new tough.CookieJar()
 axiosCookieJarSupport(axios)
 
 const api = axios.create({
+  baseURL: 'http://animesub.info',
   jar: cookieJar,
   withCredentials: true
 })
 
-const DOWNLOAD_URL = 'http://animesub.info/sciagnij.php'
-const SEARCH_URL = 'http://animesub.info/szukaj.php?szukane='
+const DOWNLOAD_URL = '/sciagnij.php'
+const SEARCH_URL = '/szukaj.php?szukane='
 
 const download = async (id, sh, path) => {
   const response = await api.post(DOWNLOAD_URL, qs.stringify({id: id, sh: sh}), {responseType: 'arraybuffer'}).catch(error => { console.error(error) })
@@ -33,8 +34,13 @@ const download = async (id, sh, path) => {
   })
 }
 
-const search = async (title, titletype) => {
-  const response = await api.get(SEARCH_URL + title + '&pTitle=' + titletype).catch(error => { console.error(error) })
+const search = async (title, titletype, page) => {
+  if (page === undefined || page === null) {
+    page = 0
+  } else {
+    this.page = page
+  }
+  const response = await api.get(SEARCH_URL + title + '&pTitle=' + titletype + '&od=' + this.page).catch(error => { console.error(error) })
   return new Promise((resolve, reject) => {
     x(response.data,
       {
@@ -57,7 +63,11 @@ const search = async (title, titletype) => {
           sh: queries[i + 1]
         })
       })
-      resolve(out)
+      const outs = {
+        page: page,
+        json: out
+      }
+      resolve(outs)
     })
   })
 }

@@ -22,7 +22,7 @@ const id = 1
 animesub.search(title, titletype.org)
   .then(data => {
     console.log(data)
-    animesub.download(data[0].id, data[0].sh, path)
+    animesub.download(data.json[0].id, data.json[0].sh, path)
       .then(log => console.log(log))
       .catch(err => console.log(err))
   }).catch(err => console.log(err))
@@ -48,14 +48,17 @@ animesub.search(title, titletype.org).then((data) => {
 ```
 
 ```js
-[
-	{ title: 'Shokugeki no Souma: Ni no Sara ep01',
-    id: '61211',
-    sh: '8cb865e5e82d2a1d2d10487674ac4f9369dac8b3' },
-  { title: 'Shokugeki no Souma: Ni no Sara ep01',
-    id: '61220',
-    sh: 'c66d9ba7b90bfa706e845b82c1e92744ab5c6196' }
-]	
+{
+  page: 0,
+  json: [
+    { title: 'Shokugeki no Souma: Ni no Sara ep01',
+      id: '61211',
+      sh: '8cb865e5e82d2a1d2d10487674ac4f9369dac8b3' },
+    { title: 'Shokugeki no Souma: Ni no Sara ep01',
+      id: '61220',
+      sh: 'c66d9ba7b90bfa706e845b82c1e92744ab5c6196' }
+  ]
+}
 ```
 
 

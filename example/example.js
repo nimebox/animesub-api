@@ -1,6 +1,6 @@
 const animesub = require('../src/index.js')
-const title = 'boruto'
-const path = 'boruto_napisy.zip' // output boruto_napisy.zip
+const title = 'naruto'
+const path = 'naruto_napisy.zip' // output boruto_napisy.zip
 const titletype = {
   org: 'org', // oryginalny tytuł
   pl: 'pl', // polski tytuł

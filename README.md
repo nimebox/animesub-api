@@ -49,6 +49,7 @@ animesub.search(title, titletype.org).then((data) => {
 
 ```js
 {
+  pages: 3,
   page: 0,
   json: [
     { title: 'Shokugeki no Souma: Ni no Sara ep01',

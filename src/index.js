@@ -37,15 +37,14 @@ const download = async (id, sh, path) => {
 const search = async (title, titletype, page) => {
   if (page === undefined || page === null) {
     page = 0
-  } else {
-    this.page = page
   }
-  const response = await api.get(SEARCH_URL + title + '&pTitle=' + titletype + '&od=' + this.page).catch(error => { console.error(error) })
+  const response = await api.get(SEARCH_URL + title + '&pTitle=' + titletype + '&od=' + page).catch(error => { console.error(error) })
   return new Promise((resolve, reject) => {
     x(response.data,
       {
         value: ['input@value'],
-        title: ['tr[class=KNap] > td[width="45%"]']
+        title: ['tr[class="KNap"] > td[width="45%"]'],
+        pages: 'td[class="MaleLtr"]:nth-of-type(1)'
       }
     )((err, obj) => {
       if (err) {
@@ -63,7 +62,10 @@ const search = async (title, titletype, page) => {
           sh: queries[i + 1]
         })
       })
+      const pages = _.words(obj.pages)
+      pages.splice(0, 2)
       const outs = {
+        pages: Math.floor(pages[0] / 30),
         page: page,
         json: out
       }

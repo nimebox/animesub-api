@@ -1,7 +1,7 @@
 const fs = require('fs')
 const x = require('x-ray')()
 const axios = require('axios')
-const axiosCookieJarSupport = require('@3846masa/axios-cookiejar-support')
+const axiosCookieJarSupport = require('@3846masa/axios-cookiejar-support').default
 const tough = require('tough-cookie')
 const qs = require('querystring')
 const _ = require('lodash')
@@ -17,29 +17,29 @@ const api = axios.create({
 
 const DOWNLOAD_URL = '/sciagnij.php'
 const SEARCH_URL = '/szukaj.php?szukane='
-
 const download = async (id, sh, path) => {
   const response = await api.post(DOWNLOAD_URL, qs.stringify({id: id, sh: sh}), {responseType: 'arraybuffer'}).catch(error => { console.error(error) })
   return new Promise((resolve, reject) => {
     if (response.headers['content-type'] === 'application/zip') {
       fs.writeFile(path, response.data, (err) => {
         if (err) {
-          reject(err)
+          reject(new Error(err))
         }
         resolve(`${path} written!`)
       })
     } else {
-      reject(console.error('content-type must be application/zip'))
+      reject(new Error('content-type must be application/zip'))
     }
   })
 }
 
 const search = async (title, titletype, page) => {
-  if (page === undefined || page === null) {
-    page = 0
-  }
-  const response = await api.get(SEARCH_URL + title + '&pTitle=' + titletype + '&od=' + page).catch(error => { console.error(error) })
-  return new Promise((resolve, reject) => {
+  try {
+    let data = null
+    if (page === undefined || page === null) {
+      page = 0
+    }
+    const response = await api.get(SEARCH_URL + title + '&pTitle=' + titletype + '&od=' + page)
     x(response.data,
       {
         value: ['input@value'],
@@ -48,7 +48,7 @@ const search = async (title, titletype, page) => {
       }
     )((err, obj) => {
       if (err) {
-        reject(err)
+        throw new Error(err)
       }
       const queries = _.without(obj.value, 'ok', '1', 'Zaloguj si�', 'Szukaj', 'Szukaj napis�w', 'Pobierz napisy')
       queries.splice(0, 4)
@@ -69,9 +69,12 @@ const search = async (title, titletype, page) => {
         page: page,
         json: out
       }
-      resolve(outs)
+      data = outs
     })
-  })
+    return data
+  } catch (err) {
+    throw new Error(err)
+  }
 }
 
 module.exports = {

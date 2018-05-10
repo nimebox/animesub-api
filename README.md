@@ -1,4 +1,4 @@
-# Animesub-api
+# Animesub-api [![Build Status](https://travis-ci.org/Nimebox/animesub-api.svg?branch=master)](https://travis-ci.org/Nimebox/animesub-api)
 Unofficial api for
 http://animesub.info
 

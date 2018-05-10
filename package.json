@@ -1,12 +1,12 @@
 {
   "name": "animesub-api",
-  "version": "0.7.5",
+  "version": "0.8.0",
   "description": "animesub.info unofficial api",
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint --ext .js --ignore-path .gitignore .",
-    "lint-fix": "eslint  --fix --ext .js --ignore-path .gitignore .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint:fix": "eslint  --fix --ext .js --ignore-path .gitignore .",
+    "test": "jest --forceExit --verbose"
   },
   "keywords": [
     "anime",
@@ -26,19 +26,28 @@
   "bugs": "https://github.com/xdk78/animesub-api/issues",
   "license": "MIT",
   "dependencies": {
-    "@3846masa/axios-cookiejar-support": "^0.1.4",
-    "axios": "^0.17.1",
-    "lodash": "^4.17.4",
+    "@3846masa/axios-cookiejar-support": "^0.3.5",
+    "axios": "^0.18.0",
+    "lodash": "^4.17.10",
     "q": "^1.5.1",
-    "tough-cookie": "^2.3.3",
+    "tough-cookie": "^2.3.4",
     "x-ray": "^2.3.2"
   },
   "devDependencies": {
-    "eslint": "^4.13.1",
+    "jest": "^22.4.3",
+    "eslint": "^4.19.1",
     "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "node"
+    ]
   }
 }

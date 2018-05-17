@@ -1,6 +1,6 @@
 {
   "name": "animesub-api",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "animesub.info unofficial api",
   "main": "src/index.js",
   "scripts": {
@@ -28,19 +28,19 @@
   "dependencies": {
     "@3846masa/axios-cookiejar-support": "^0.3.5",
     "axios": "^0.18.0",
+    "grabbi": "^0.1.0",
     "lodash": "^4.17.10",
-    "q": "^1.5.1",
-    "tough-cookie": "^2.3.4",
-    "x-ray": "^2.3.2"
+    "qs": "^6.5.2",
+    "tough-cookie": "^2.3.4"
   },
   "devDependencies": {
-    "jest": "^22.4.3",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.1.0"
+    "eslint-plugin-standard": "^3.1.0",
+    "jest": "^22.4.3"
   },
   "jest": {
     "testEnvironment": "node",

@@ -39,11 +39,11 @@ const search = async (title, titletype, page) => {
     if (page === undefined || page === null) {
       page = 0
     }
-    const { res } = await grabbi(SEARCH_URL + title + '&pTitle=' + titletype + '&od=' + page, config)
+    const { doc } = await grabbi(SEARCH_URL + title + '&pTitle=' + titletype + '&od=' + page, config)
     const obj = {
-      input: [...res.querySelectorAll('input')],
-      title: [...res.querySelectorAll('tr[class="KNap"] > td[width="45%"]')],
-      pages: res.querySelector('td[class="MaleLtr"]:nth-of-type(1)')
+      input: [...doc.querySelectorAll('input')],
+      title: [...doc.querySelectorAll('tr[class="KNap"] > td[width="45%"]')],
+      pages: doc.querySelector('td[class="MaleLtr"]:nth-of-type(1)')
     }
     const inputs = obj.input.map(el => el.value)
     const queries = _.without(inputs, 'ok', '1', 'Zaloguj si�', 'Szukaj', 'Szukaj napis�w', 'Pobierz napisy')
@@ -67,7 +67,7 @@ const search = async (title, titletype, page) => {
     }
     return data
   } catch (err) {
-    throw new Error(err)
+    return new Error(err)
   }
 }
 

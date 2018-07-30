@@ -22,8 +22,8 @@ describe('DOWNLOAD anime subtitles', () => {
     expect(data.json[0].title).not.toBeNull()
     expect(data.json[0].id).not.toBeNull()
     expect(data.json[0].sh).not.toBeNull()
-    const zipInfo = await animesub.download(data.json[0].id, data.json[0].sh, path)
-    expect(zipInfo).toBe(`${path} written!`)
+    const file = await animesub.download(data.json[0].id, data.json[0].sh)
+    expect(fs.writeFileSync(path, file)).not.toBeNull()
   })
 })
 

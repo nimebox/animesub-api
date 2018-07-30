@@ -1,3 +1,4 @@
+const fs = require('fs')
 const animesub = require('../src/index.js')
 const title = 'naruto'
 const path = 'naruto_napisy.zip' // output boruto_napisy.zip
@@ -11,7 +12,7 @@ const page = 0 // 0 - first, 1 - second ...
 animesub.search(title, titletype.org, page)
   .then(data => {
     console.log(data)
-    animesub.download(data.json[0].id, data.json[0].sh, path)
-      .then(log => console.log(log))
+    animesub.download(data.json[0].id, data.json[0].sh)
+      .then(file => fs.writeFileSync(path, file))
       .catch(err => console.error(err))
   }).catch(err => console.error(err))

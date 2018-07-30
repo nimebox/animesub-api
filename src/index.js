@@ -1,4 +1,3 @@
-const fs = require('fs')
 const axios = require('axios')
 const axiosCookieJarSupport = require('@3846masa/axios-cookiejar-support').default
 const tough = require('tough-cookie')
@@ -18,20 +17,16 @@ const api = axios.create(config)
 
 const DOWNLOAD_URL = '/sciagnij.php'
 const SEARCH_URL = '/szukaj.php?szukane='
-const download = async (id, sh, path) => {
-  const response = await api.post(DOWNLOAD_URL, qs.stringify({id: id, sh: sh}), {responseType: 'arraybuffer'}).catch(error => { console.error(error) })
-  return new Promise((resolve, reject) => {
-    if (response.headers['content-type'] === 'application/zip') {
-      fs.writeFile(path, response.data, (err) => {
-        if (err) {
-          reject(new Error(err))
-        }
-        resolve(`${path} written!`)
-      })
-    } else {
-      reject(new Error('content-type must be application/zip'))
+const download = async (id, sh) => {
+  try {
+    const response = await api.post(DOWNLOAD_URL, qs.stringify({id: id, sh: sh}), {responseType: 'arraybuffer'})
+    if (response.headers['content-type'] !== 'application/zip') {
+      throw new Error('content-type must be application/zip')
     }
-  })
+    return response.data
+  } catch (err) {
+    return err
+  }
 }
 
 const search = async (title, titletype, page) => {
@@ -67,7 +62,7 @@ const search = async (title, titletype, page) => {
     }
     return data
   } catch (err) {
-    return new Error(err)
+    return err
   }
 }
 

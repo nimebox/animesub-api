@@ -4,11 +4,12 @@ http://animesub.info
 
 ## Install animesub-api
     npm install animesub-api --save
-    
+
 ## Usage
 ### Download subtitles
 
 ```javascript
+const fs = require('fs')
 const animesub = require('animesub-api')
 const title = 'boruto'
 const path = 'boruto_napisy.zip' // output boruto_napisy.zip
@@ -19,13 +20,14 @@ const titletype = {
 }
 const id = 1
 // Search and download
-animesub.search(title, titletype.org)
+animesub.search(title, titletype.org, page)
   .then(data => {
     console.log(data)
-    animesub.download(data.json[0].id, data.json[0].sh, path)
-      .then(log => console.log(log))
-      .catch(err => console.log(err))
-  }).catch(err => console.log(err))
+    animesub.download(data.json[0].id, data.json[0].sh)
+      .then(file => fs.writeFileSync(path, file))
+      .catch(err => console.error(err))
+  }).catch(err => console.error(err))
+
 
 ```
 ### Search

@@ -38,17 +38,21 @@ const search = async (title, titletype, page) => {
     const obj = {
       input: [...doc.querySelectorAll('input')],
       title: [...doc.querySelectorAll('tr[class="KNap"] > td[width="45%"]')],
+      description: [...doc.querySelectorAll('tr[class="KKom"] > td[class="KNap"]')],
       pages: doc.querySelector('td[class="MaleLtr"]:nth-of-type(1)')
     }
     const inputs = obj.input.map(el => el.value)
     const queries = _.without(inputs, 'ok', '1', 'Zaloguj si�', 'Szukaj', 'Szukaj napis�w', 'Pobierz napisy')
     queries.splice(0, 4)
+    let si = 0
     const out = obj.title.map((el, i) => {
       if (i === 0) {
         i = 0
       } else { i *= 2 }
+      si = si + 1
       return ({
         title: el.innerHTML,
+        description: obj.description[si - 1].innerHTML,
         id: queries[i],
         sh: queries[i + 1]
       })

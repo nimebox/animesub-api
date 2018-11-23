@@ -1,6 +1,6 @@
 jest.setTimeout(100000)
 
-const animesub = require('../src/index.js')
+const animesub = require('../src/index')
 const title = 'naruto'
 const titletype = {
   org: 'org', // oryginalny tytuł
@@ -13,13 +13,16 @@ describe('SEARCH anime', () => {
   it('should respond with data', async () => {
     const data = await animesub.search(title, titletype.org, page)
 
-    expect(data).not.toBeNull()
-    expect(data).not.toBeUndefined()
-    expect(data.pages).not.toBeNull()
-    expect(data.page).not.toBeNull()
-    expect(data.json).not.toBeNull()
-    expect(data.json[0].title).not.toBeNull()
-    expect(data.json[0].id).not.toBeNull()
-    expect(data.json[0].sh).not.toBeNull()
+    expect(data).toBeDefined()
+    expect(data.pages).toBeDefined()
+    expect(data.page).toBeDefined()
+    expect(data.json).toBeDefined()
+    expect(data.json[0].title).toBeDefined()
+    expect(data.json[0].id).toBeDefined()
+    expect(data.json[0].sh).toBeDefined()
+    expect(data.json[0].added).toBeDefined()
+    expect(data.json[0].format).toBeDefined()
+    expect(data.json[0].user).toBeDefined()
+    expect(data.json[0].description).toBeDefined()
   })
 })

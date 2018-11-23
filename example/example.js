@@ -1,5 +1,5 @@
 const fs = require('fs')
-const animesub = require('../src/index.js')
+const animesub = require('../src/index')
 const title = 'naruto'
 const path = 'naruto_napisy.zip' // output boruto_napisy.zip
 const titletype = {
@@ -8,6 +8,7 @@ const titletype = {
   en: 'en' // angielski tytuł
 }
 const page = 0 // 0 - first, 1 - second ...
+
 // Search and download
 animesub.search(title, titletype.org, page)
   .then(data => {

@@ -1,4 +1,3 @@
-jest.setTimeout(100000)
 const fs = require('fs')
 const animesub = require('../src/index')
 const title = 'naruto'

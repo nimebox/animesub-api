@@ -1,5 +1,5 @@
 const axios = require('axios')
-const axiosCookieJarSupport = require('@3846masa/axios-cookiejar-support').default
+const axiosCookieJarSupport = require('axios-cookiejar-support').default
 const tough = require('tough-cookie')
 const qs = require('qs')
 const words = require('lodash.words')
@@ -59,7 +59,7 @@ const search = async (title, titletype, page) => {
       pages: doc.querySelector('td[class="MaleLtr"]:nth-of-type(1)')
     }
 
-    const inputs = obj.input.map(el => el.value)
+    const inputs = obj.input.map((el) => el.value)
     const queries = without(
       inputs,
       'ok',
@@ -71,9 +71,9 @@ const search = async (title, titletype, page) => {
     )
     queries.splice(0, 4)
 
-    const added = obj.added.map(el => el.innerHTML)
-    const format = obj.format.map(el => el.innerHTML)
-    const user = obj.user.map(el => el.innerHTML.substring(1))
+    const added = obj.added.map((el) => el.innerHTML)
+    const format = obj.format.map((el) => el.innerHTML)
+    const user = obj.user.map((el) => el.innerHTML.substring(1))
     const description = obj.description
 
     let si = 0

@@ -1,5 +1,5 @@
 const axios = require('axios')
-const axiosCookieJarSupport = require('axios-cookiejar-support').default
+const { wrapper } = require('axios-cookiejar-support')
 const tough = require('tough-cookie')
 const qs = require('qs')
 const words = require('lodash.words')
@@ -8,7 +8,6 @@ const cookieJar = new tough.CookieJar()
 const { JSDOM } = require('jsdom')
 
 axios.defaults.adapter = require('axios/lib/adapters/http')
-axiosCookieJarSupport(axios)
 
 const config = {
   baseURL: 'http://animesub.info',
@@ -16,7 +15,7 @@ const config = {
   withCredentials: true
 }
 
-const api = axios.create(config)
+const api = wrapper(axios.create(config))
 
 const DOWNLOAD_URL = '/sciagnij.php'
 const SEARCH_URL = '/szukaj.php?szukane='
